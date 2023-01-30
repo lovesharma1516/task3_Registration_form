@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task 2:Love Sharma</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="header">
+        <h1>Task 3: Registration Form</h1>
+
+        <div class="container left">
+            <div id="details">
+                
+                <b>Name:</b><input type="text" name="name" id="inp_name" class="width clr_inp" placeholder="Enter your name here!">
+                <br>
+
+                
+                <b>F.Name:</b><input type="text" name="name" id="inp_name" class="width clr_inp" placeholder="Enter your name Fathername here!">
+                <br>
+
+                
+                <b>Phone:</b> <input type="tel" name="name" id="inp_name" class="width clr_inp" placeholder="Enter your number here!">
+                <br>
+
+                
+                <b>Email:</b><input type="email" name="email" id="inp_email" class="width clr_inp" placeholder="Enter your email here!">
+                <br>
+
+                <h4>Gender</h4>
+                <div class="radios">
+                    <input type="radio" name="gender" id="inp_male" value="Male" class="gender"><label
+                        for="inp_male">Male</label><br>
+                    <input type="radio" name="gender" id="inp_female" value="Female" class="gender"><label
+                        for="inp_female">Female</label><br>
+                    <input type="radio" name="gender" id="inp_Other" value="Other" class="gender"><label
+                        for="inp_female">other</label>
+                </div>
+                <br>
+
+                
+                
+               <b>Image:</b> <input type="file" name="img" id="inp_img" accept="image/*" class="clr_inp">
+                <br>
+
+                <h4>Skills</h4>
+                <div class="boxes">
+                    <input type="checkbox" name="HTML" id="inp_html" class="checkbox" value="HTML"><label
+                        for="imp_HTML">HTML</label>
+                        <input type="checkbox" name="CSS" id="inp_css" class="checkbox" value="CSS"><label
+                        for="imp_CSS">CSS</label>
+                    <input type="checkbox" name="JavaScript" id="inp_javascript" class="checkbox" value="JavaScript"><label
+                    for="imp_JavaScript">JavaScript</label>
+                    
+                </div>
+                <br>
+
+                <div class="buttons">
+                    <button type="submit" id="submit">Register Now!</button>
+                </div>
+                <div>
+                    <button id="clear">Refresh Page!</button>
+                </div>
+
+            </div>
+            <div class="container right">
+                <div id="output">
+
+            </div>
+        </div>
+     </div>
+     <!-- javascript starts here -->
+     <script type="text/javascript">
+    var output = document.getElementById("output");
+    let name = document.getElementById("inp_name");
+    var email = document.getElementById("inp_email");
+    var img = document.getElementById("inp_img");
+    var gender = document.getElementsByClassName("gender");
+    var checkbox = document.getElementsByClassName("checkbox");
+    var submit = document.getElementById("submit");
+    var clear = document.getElementById("clear");
+    var clr_inp = document.getElementsByClassName("clr_inp");
+    var img_src;
+
+img.addEventListener("change", function () {
+    let img_reader = new FileReader();
+    img_reader.addEventListener("load", function () {
+        img_src = img_reader.result;
+    })
+    img_reader.readAsDataURL(this.files[0]);
+})
+
+    submit.onclick = function () {
+        let flag = 1;
+        for (i = 0; i < document.querySelectorAll("input").length; i++) {
+            if (document.querySelectorAll("input")[i].value == "") {
+             flag = 0
+             break;
+            }
+        }
+        if (flag == 0)
+            alert("All fields must be filled");
+         else {
+            let data = document.createElement("div");
+            let image = document.createElement("div");
+            let info = document.createElement("div");
+            data.className = "data";
+            image.className = "image";
+            info.className = "info";
+
+            let selected;
+                for (i = 0; i < gender.length; i++) {
+                if (gender[i].checked == true) {
+                    selected = gender[i].value;
+                }
+            }
+
+                let skillbox = "";
+            for (j = 0; j < checkbox.length; j++) {
+                if (checkbox[j].checked == true) {
+                skillbox += checkbox[j].value + ',';
+            }
+        }
+
+
+        info.innerHTML = "<p>Name : " + name.value + "</p><p>Email : " + email.value + "</p><p>Gender : " + selected + "</p><p>Skills : " + skillbox + "</p>";
+
+            image.innerHTML = '<img src="' + img_src + '">';
+
+            output.appendChild(data);
+            data.appendChild(info);
+            data.appendChild(image);
+                }   
+            }
+
+        clear.onclick = function () {
+            for (i = 0; i < clr_inp.length; i++) {
+                clr_inp[i].value = "";
+            }
+            for (i = 0; i < gender.length; i++) {
+                gender[i].value = "";
+            }
+            for (i = 0; i < checkbox.length; i++) {
+                checkbox[i].value = "";
+            }
+        }
+     </script>
+     <!-- javascript ends here -->
+</body>
+
+</html>
